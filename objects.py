@@ -28,7 +28,7 @@ entity_factories = [
     Body()),
 
     # 4 - Piano
-    lambda args: Entity(Sprite("assets/Background/Tavern/tavern_piano.png", base_scale=0.23, depth_scale=True),
+    lambda args: Entity(Sprite("assets/Background/Tavern/tavern_piano.png", base_scale=0.14, depth_scale=True),
     Body()),
 
     # 5 - Silla 1
