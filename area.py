@@ -21,6 +21,12 @@ class Area:
         sprites.clear()
         active_objs.clear()
         self.entities = []
+
+    def search_for_first(self,kind):
+        for e in self.entities:
+            c = e.get(kind)
+            if c is None:
+                return e 
         
     def load_file(self, area_file):
         self.reset_everything()
