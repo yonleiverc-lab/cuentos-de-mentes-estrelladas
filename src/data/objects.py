@@ -1,9 +1,9 @@
-from entity import Entity
-from sprite import Sprite
-from player import Player
-from physics import Body
-from teleporter import Teleporter
-from animator import Animator
+from components.entity import Entity
+from components.sprite import Sprite
+from components.player import Player
+from components.physics import Body
+from components.teleporter import Teleporter
+from components.animator import Animator
 
 entity_factories = [
 
@@ -144,6 +144,52 @@ entity_factories = [
         ), 
         Sprite("assets/Background/Village//Lumber_House/lumber_house_door.png", base_scale=0.07, depth_scale=True, draw_order_override=801)
     ),
+     # 24 Teletransportación a el bosque
+    lambda args: Entity(
+        Teleporter(
+            area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
+            x=int(args[4]),             # 2. Offset X de la colisión (ej: -20)
+            y=int(args[5]),             # 3. Offset Y de la colisión (ej: 15)
+            width=int(args[6]),         # 4. Ancho de la colisión (ej: 50)
+            height=int(args[7])         # 5. Alto de la colisión (ej: 20)
+        ), 
+        Sprite("assets/Background/Village///Forest_gate_door.png", base_scale=0.07, depth_scale=True, draw_order_override=801)
+    ),
+
+    #===================================
+    #--------------FOREST--------------
+    #===================================
+    # 25 - Árbol
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_tree.png", base_scale=0.2, depth_scale=True),
+    Body()),
+    # 26 - Piedra
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_rock.png", base_scale=0.1, depth_scale=True),
+    Body()),
+    # 27 - Tocón
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_stump.png", base_scale=0.1, depth_scale=True),
+    Body()),
+    # 28 - Arbusto
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_bush.png", base_scale=0.1, depth_scale=True),
+    Body()),
+    # 29 - Flor
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_flower.png", base_scale=0.05, depth_scale=True),
+    Body()),
+    # 30 -mountain rock
+    lambda args: Entity(Sprite("assets/Background/Forest/mountain_rock.png", base_scale=0.2, depth_scale=True),
+    Body()),
+
+    # 31 Teletransportación a la villa
+    lambda args: Entity(
+        Teleporter(
+            area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
+            x=int(args[4]),             # 2. Offset X de la colisión (ej: -20)
+            y=int(args[5]),             # 3. Offset Y de la colisión (ej: 15)
+            width=int(args[6]),         # 4. Ancho de la colisión (ej: 50)
+            height=int(args[7])         # 5. Alto de la colisión (ej: 20)
+        ), 
+        Sprite("assets/Background/Forest///Village_gate_door.png", base_scale=0.07, depth_scale=True, draw_order_override=801)
+    ),
+
 
 ]
 

@@ -1,11 +1,11 @@
 import pygame
 import os
 
-from sprite import Sprite
-from input import is_key_pressed
-from camera import camera
-from entity import active_objs
-from physics import Body, triggers
+from components.sprite import Sprite
+from core.input import is_key_pressed
+from core.camera import camera
+from components.entity import active_objs
+from components.physics import Body, triggers
 
 class Player:
     def __init__(self, movement_speed=50):
@@ -14,7 +14,7 @@ class Player:
         self.movement_speed = movement_speed
 
     def update(self):
-        from animator import Animator
+        from components.animator import Animator
 
         previous_x = self.entity.x
         previous_y = self.entity.y

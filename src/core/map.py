@@ -37,7 +37,7 @@ class Map:
         self.tile_size = tile_size
     
     def draw(self, screen):
-        from camera import camera
+        from core.camera import camera
         for y, row in enumerate(self.tiles):
             for x, tile in enumerate(row):
                 location = (x * self.tile_size - camera.x, y * self.tile_size - camera.y)

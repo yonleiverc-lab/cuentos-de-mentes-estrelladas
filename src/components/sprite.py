@@ -1,5 +1,5 @@
 import pygame
-from camera import camera
+from core.camera import camera
 
 sprites = []
 loaded = {}
@@ -48,7 +48,7 @@ class Sprite:
         if self.entity is None:
             return
         
-        from animator import Animator
+        from components.animator import Animator
         animator = self.entity.get(Animator)
         
         # Si hay animator, usar su frame actual en lugar de la imagen estática

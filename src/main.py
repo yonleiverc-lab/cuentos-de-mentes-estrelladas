@@ -1,14 +1,14 @@
 import pygame
-import input
+import core.input as input
 
-from player import Player
-from sprite import sprites, Sprite
-from map import TileKind, Map
-from camera import create_screen
-from entity import Entity, active_objs
-from physics import Body
-from area import Area, area
-from tile_types import tile_kinds
+from components.player import Player
+from components.sprite import sprites, Sprite
+from core.map import TileKind, Map
+from core.camera import create_screen
+from components.entity import Entity, active_objs
+from components.physics import Body
+from core.area import Area, area
+from data.tile_types import tile_kinds
 
 pygame.init()
 

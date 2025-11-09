@@ -1,8 +1,8 @@
-from physics import Trigger
-from player import Player
+from components.physics import Trigger
+from components.player import Player
 
 def teleport(area_file):
-    from area import area
+    from core.area import area
     area.load_file(area_file)
 
 class Teleporter(Trigger):

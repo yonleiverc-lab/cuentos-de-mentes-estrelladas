@@ -1,6 +1,6 @@
-from map import Map
-from objects import create_entity
-from tile_types import tile_kinds
+from core.map import Map
+from data.objects import create_entity
+from data.tile_types import tile_kinds
 
 area = None
 area_folder_location = "assets/maps"
@@ -13,9 +13,9 @@ class Area:
         self.load_file(area_file)
 
     def reset_everything(self):
-        from physics import triggers,bodies
-        from sprite import sprites
-        from entity import active_objs
+        from components.physics import triggers,bodies
+        from components.sprite import sprites
+        from components.entity import active_objs
         triggers.clear()
         bodies.clear()
         sprites.clear()
