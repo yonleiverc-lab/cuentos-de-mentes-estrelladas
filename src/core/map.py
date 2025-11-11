@@ -35,6 +35,35 @@ class Map:
         
         #Tamaño
         self.tile_size = tile_size
+
+       # NUEVO: Calcular límites del mapa basándose en el tamaño de la imagen del background
+        if tile_kinds and len(tile_kinds) > 0:
+            # Obtener la imagen del primer tile_kind (el background)
+            background_image = tile_kinds[0].image
+            self.width = background_image.get_width()
+            self.height = background_image.get_height()
+            
+            # Definir márgenes de colisión (ajusta estos valores según necesites)
+            self.margin = -10  # Píxeles de margen desde el borde
+            
+            # Límites ajustados
+            self.min_x = self.margin
+            self.max_x = self.width - self.margin
+            self.min_y = self.margin
+            self.max_y = self.height - self.margin
+        else:
+            # Valores por defecto si no hay tile_kinds
+            self.width = 1920
+            self.height = 1080
+            self.margin = 50
+            self.min_x = self.margin
+            self.max_x = self.width - self.margin
+            self.min_y = self.margin
+            self.max_y = self.height - self.margin
+    
+    def is_position_within_bounds(self, x, y):
+        """Verifica si una posición está dentro de los límites del mapa"""
+        return self.min_x <= x <= self.max_x and self.min_y <= y <= self.max_y 
     
     def draw(self, screen):
         from core.camera import camera

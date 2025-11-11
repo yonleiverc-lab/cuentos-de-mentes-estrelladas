@@ -1,13 +1,13 @@
 1
 -
-14, 600, 600, Jaime
-15, 400, 750, tavern
-16,470, 760,tavern.map,0, 0, 50, 50
-17,490,860, stairs
-18, 800,580, shop
-19,880,550,shop.map,3, 40, 50, 50
-20,880,582, stairs
-21,1350,700, statue
-22,2300,800, lumber house
-23,2485,730,lumber_house.map,15, 0, 50, 50
-24,0,0,forest.map,0,0,0,0
+15, 200, 600, Jaime
+16, 400, 750, tavern
+17,470, 760,tavern.map,0, 0, 50, 50
+18,490,860, stairs
+19, 800,580, shop
+20,880,550,shop.map,3, 40, 50, 50
+21,880,582, stairs
+22,1350,700, statue
+23,2300,800, lumber house
+24,2485,730,lumber_house.map,15, 0, 50, 50
+25,0,0,forest.map,0,0,0,0

@@ -15,6 +15,7 @@ class Player:
 
     def update(self):
         from components.animator import Animator
+        from core.area import area
 
         previous_x = self.entity.x
         previous_y = self.entity.y
@@ -44,9 +45,14 @@ class Player:
             self.entity.y += actual_speed  # <-- Cambiado aquí
             is_moving = True
             direction = 'front'
-        if not body.is_position_valid():
+        if not body.is_position_valid()  or not self._is_within_map_bounds():
             self.entity.y = previous_y
             is_moving = False
+
+        if not body.is_position_valid() or not self._is_within_map_bounds():
+            self.entity.y = previous_y
+            is_moving = False   
+      
 
         if is_key_pressed(pygame.K_RIGHT) or is_key_pressed(pygame.K_d):
             self.entity.x += actual_speed  # <-- Cambiado aquí
@@ -56,7 +62,7 @@ class Player:
             self.entity.x -= actual_speed  # <-- Cambiado aquí
             is_moving = True
             direction = 'left'
-        if not body.is_position_valid():
+        if not body.is_position_valid() or not self._is_within_map_bounds():
             self.entity.x = previous_x
             is_moving = False
         # Actualizar la cámara para seguir al jugador
@@ -90,9 +96,47 @@ class Player:
             camera.x = self.entity.x - camera.width / 2
             camera.y = self.entity.y - camera.height / 2
 
+        self._clamp_camera_to_map()
+
         # Verificar si el jugador está tocando algún trigger (como puertas o teleportadores)
         for t in triggers:
             if body.is_colliding_with(t):
                 t.on()
 
+    def _is_within_map_bounds(self):
+        """NUEVO: Verifica si el jugador está dentro de los límites del mapa"""
+        from core.area import area
         
+        if area and area.map:
+            return area.map.is_position_within_bounds(self.entity.x, self.entity.y)
+        
+        return True 
+    
+    def _clamp_camera_to_map(self):
+        """NUEVO: Limita la cámara para que no salga de los límites del mapa"""
+        from core.area import area
+        
+        if not area or not area.map:
+            return
+        
+        map_width = area.map.width
+        map_height = area.map.height
+        
+        # Limitar la cámara para que no muestre áreas fuera del mapa
+        # Si el mapa es más pequeño que la pantalla, centrar el mapa
+        if map_width <= camera.width:
+            camera.x = (map_width - camera.width) / 2
+        else:
+            # Limitar la cámara a los bordes del mapa
+            if camera.x < 0:
+                camera.x = 0
+            elif camera.x + camera.width > map_width:
+                camera.x = map_width - camera.width
+        
+        if map_height <= camera.height:
+            camera.y = (map_height - camera.height) / 2
+        else:
+            if camera.y < 0:
+                camera.y = 0
+            elif camera.y + camera.height > map_height:
+                camera.y = map_height - camera.height

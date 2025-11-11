@@ -14,7 +14,7 @@ pygame.init()
 
 screen = create_screen(1629, 900, "Cuentos de mentes estrelladas")
 
-clear_color = (30, 150, 50)
+clear_color = (0, 0, 0)
 running = True
 
 area = Area("tavern.map", tile_kinds)

@@ -113,8 +113,8 @@ class Animator:
         animations['front_walk'] = walk_frames_front if walk_frames_front else [front_idle_image]
         
         # Back walk (placeholder por ahora)
-        placeholder_walk_frame = walk_frames_front[0] if walk_frames_front else front_idle_image
-        animations['back_walk'] = [placeholder_walk_frame] * 4
+        walk_frames_back = self._load_walk_sequence('Back_Walk', 10)
+        animations['back_walk'] = walk_frames_back if walk_frames_back else [front_idle_image]
         
         print(f"=== Animation loading complete ===\n")
         

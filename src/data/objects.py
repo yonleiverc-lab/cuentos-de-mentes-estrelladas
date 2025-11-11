@@ -11,14 +11,14 @@ entity_factories = [
 #--------------TABERNA--------------
 #===================================
     # 0 - Jugador
-    lambda args:Entity(Player(movement_speed=50), 
+    lambda args:Entity(Player(movement_speed=200), 
     Animator('assets/Character', scale_factor=1.0),
     Sprite("assets/Character/Idle/Front.png", base_scale=0.1, depth_scale=True),
     Body(50,50,16,16)),
 
     # 1 - Columna
     lambda args:Entity(Sprite("assets/Background/Tavern/tavern_colum.png", base_scale=0.3, depth_scale=True),
-    Body(180,200,55,30)),
+    Body(30,40,60,20)),
 
     # 2 - Barra
     lambda args: Entity(
@@ -27,15 +27,15 @@ entity_factories = [
 
     # 3 - Mesa
     lambda args: Entity(Sprite("assets/Background/Tavern/tavern_table.png", base_scale=0.13, depth_scale=True),
-    Body()),
+    Body(-120,0,365,100)),
 
     # 4 - Piano
     lambda args: Entity(Sprite("assets/Background/Tavern/tavern_piano.png", base_scale=0.14, depth_scale=True),
-    Body()),
+    Body(-80,0,282,100)),
 
     # 5 - Silla 1
     lambda args: Entity(Sprite("assets/Background/Tavern/tavern_chair.png", base_scale=0.1, depth_scale=True),
-    Body()),
+    Body(40,0,30,60)),
 
     # 6 - Iluminación1
     lambda args: Entity(Sprite("assets/Background/Tavern/tavern_light1.png", base_scale=0.15, depth_scale=True, draw_order_override=961),
@@ -75,22 +75,32 @@ entity_factories = [
         ), 
         Sprite("assets/Background/Tavern/tavern_door.png", base_scale=0.2, depth_scale=True)
     ),
+    
+    # 14 - Paredes de colisión genéricas
+    lambda args: Entity(
+        Body(
+            int(args[3]) if len(args) > 3 else 0,    # offset x
+            int(args[4]) if len(args) > 4 else 0,    # offset y
+            int(args[5]) if len(args) > 5 else 50,   # width (default: 50)
+            int(args[6]) if len(args) > 6 else 50    # height (default: 50)
+        )
+    ),
 
 #===================================
 #--------------VILLA--------------
 #===================================
 
-    # 14 - Jugador
+    # 15 - Jugador
     lambda args:Entity(Player(movement_speed=80),
     Animator('assets/Character', scale_factor=1.0), 
     Sprite("assets/Character/Idle/Front.png", base_scale=0.05, depth_scale=True),
     Body(50,50,16,16)),
 
-    # 15 - Taberna
+    # 16 - Taberna
     lambda args: Entity(Sprite("assets/Background/Village/Village_Tavern/village_tavern.png", base_scale=0.32, depth_scale=True),
     Body()),
 
-    # 16 Teletransportación a Taberna
+    # 17 Teletransportación a Taberna
     lambda args: Entity(
         Teleporter(
             area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
@@ -101,15 +111,15 @@ entity_factories = [
         ), 
         Sprite("assets/Background/Village/Village_Tavern/village_tavern_door.png", base_scale=0.12, depth_scale=True)
     ),
-    # 17 - Taberna/Escaleras
+    # 18 - Taberna/Escaleras
     lambda args: Entity(Sprite("assets/Background/Village/Village_Tavern/village_tavern_stairs.png", base_scale=0.13, depth_scale=True),
     Body()),
 
-     # 18 - Tienda
+     # 19 - Tienda
     lambda args: Entity(Sprite("assets/Background/Village/Village_Shop/village_shop.png", base_scale=0.5, depth_scale=True),
     Body()),
 
-    # 19 Teletransportación a Tienda
+    # 20 Teletransportación a Tienda
     lambda args: Entity(
         Teleporter(
             area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
@@ -121,19 +131,19 @@ entity_factories = [
         Sprite("assets/Background/Village/Village_Shop/village_shop_door.png", base_scale=0.08, depth_scale=True, draw_order_override=581)
     ),
 
-    # 20 - Tienda/Escaleras
+    # 21 - Tienda/Escaleras
     lambda args: Entity(Sprite("assets/Background/Village/Village_Shop/village_shop_stairs.png", base_scale=0.13, depth_scale=True),
     Body()),
 
-    # 21 - Estatua
+    # 22 - Estatua
     lambda args: Entity(Sprite("assets/Background/Village/village_statue.png", base_scale=0.15, depth_scale=True),
     Body()),
 
-    # 22 - Casa del leñador
+    # 23 - Casa del leñador
     lambda args: Entity(Sprite("assets/Background/Village/Lumber_House/lumber_house.png", base_scale=0.43, depth_scale=True),
     Body()),
 
-    # 23 Teletransportación a Casa del Leñador
+    # 24 Teletransportación a Casa del Leñador
     lambda args: Entity(
         Teleporter(
             area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
@@ -144,7 +154,7 @@ entity_factories = [
         ), 
         Sprite("assets/Background/Village//Lumber_House/lumber_house_door.png", base_scale=0.07, depth_scale=True, draw_order_override=801)
     ),
-     # 24 Teletransportación a el bosque
+     # 25 Teletransportación a el bosque
     lambda args: Entity(
         Teleporter(
             area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
@@ -159,26 +169,26 @@ entity_factories = [
     #===================================
     #--------------FOREST--------------
     #===================================
-    # 25 - Árbol
+    # 26 - Árbol
     lambda args: Entity(Sprite("assets/Background/Forest/forest_tree.png", base_scale=0.2, depth_scale=True),
     Body()),
-    # 26 - Piedra
+    # 27 - Piedra
     lambda args: Entity(Sprite("assets/Background/Forest/forest_rock.png", base_scale=0.1, depth_scale=True),
     Body()),
-    # 27 - Tocón
+    # 28 - Tocón
     lambda args: Entity(Sprite("assets/Background/Forest/forest_stump.png", base_scale=0.1, depth_scale=True),
     Body()),
-    # 28 - Arbusto
+    # 29 - Arbusto
     lambda args: Entity(Sprite("assets/Background/Forest/forest_bush.png", base_scale=0.1, depth_scale=True),
     Body()),
-    # 29 - Flor
+    # 30 - Flor
     lambda args: Entity(Sprite("assets/Background/Forest/forest_flower.png", base_scale=0.05, depth_scale=True),
     Body()),
-    # 30 -mountain rock
+    # 31 -mountain rock
     lambda args: Entity(Sprite("assets/Background/Forest/mountain_rock.png", base_scale=0.2, depth_scale=True),
     Body()),
 
-    # 31 Teletransportación a la villa
+    # 32 Teletransportación a la villa
     lambda args: Entity(
         Teleporter(
             area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
