@@ -14,7 +14,7 @@ import pyautogui
 pygame.init()
 
 width_test, height_test = pyautogui.size()
-# print(f"Screen width: {width}, Screen height: {height}")
+
 
 
 # screen = create_screen(1629, 900, "Cuentos de mentes estrelladas")
@@ -23,7 +23,7 @@ screen = create_screen(width_test, height_test, "Cuentos de mentes estrelladas")
 clear_color = (0, 0, 0)
 running = True
 
-area = Area("village.map", tile_kinds)
+area = Area("forest.map", tile_kinds)
 
 
 # Bucle de juego
