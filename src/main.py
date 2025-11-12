@@ -14,7 +14,7 @@ import pyautogui
 pygame.init()
 
 width_test, height_test = pyautogui.size()
-# print(f"Screen width: {width}, Screen height: {height}")
+
 
 
 # screen = create_screen(1629, 900, "Cuentos de mentes estrelladas")
