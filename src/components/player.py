@@ -16,6 +16,7 @@ class Player:
     def update(self):
         from components.animator import Animator
         from core.area import area
+        from components.jump_trigger import JumpTrigger, jump_prompt
 
         previous_x = self.entity.x
         previous_y = self.entity.y
@@ -32,17 +33,42 @@ class Player:
         else:
             actual_speed = self.movement_speed
 
+        # Limpiar prompts anteriores
+        jump_prompt.clear_prompts()
+
+        # Verificar triggers (puertas y saltos)
+        for t in triggers:
+            if body.is_colliding_with(t):
+                # Si es un JumpTrigger
+                if isinstance(t, JumpTrigger):
+                    t.player_in_trigger = True
+                    
+                    # Mostrar prompt
+                    jump_prompt.add_prompt(t.prompt_text, self.entity.x, self.entity.y)
+                    
+                    # Verificar si el jugador presionó ESPACIO
+                    if t.check_jump_input() and not t.is_jumping:
+                        t.execute_jump(self.entity)
+                        return  # No procesar movimiento durante el salto
+                else:
+                    # Otros triggers (como teleportadores)
+                    t.on()
+            else:
+                # Si es un JumpTrigger, marcar que el jugador salió
+                if isinstance(t, JumpTrigger):
+                    t.player_in_trigger = False
+
         # Detectar movimiento y dirección
         is_moving = False
         direction = None
 
         # Usar actual_speed en lugar de self.movement_speed
         if is_key_pressed(pygame.K_UP) or is_key_pressed(pygame.K_w):
-            self.entity.y -= actual_speed  # <-- Cambiado aquí
+            self.entity.y -= actual_speed  
             is_moving = True
             direction = 'back'
         if is_key_pressed(pygame.K_DOWN) or is_key_pressed(pygame.K_s):
-            self.entity.y += actual_speed  # <-- Cambiado aquí
+            self.entity.y += actual_speed 
             is_moving = True
             direction = 'front'
         if not body.is_position_valid()  or not self._is_within_map_bounds():
@@ -55,7 +81,7 @@ class Player:
       
 
         if is_key_pressed(pygame.K_RIGHT) or is_key_pressed(pygame.K_d):
-            self.entity.x += actual_speed  # <-- Cambiado aquí
+            self.entity.x += actual_speed  
             is_moving = True
             direction = 'right'
         if is_key_pressed(pygame.K_LEFT) or is_key_pressed(pygame.K_a):

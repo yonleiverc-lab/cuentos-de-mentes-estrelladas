@@ -3,7 +3,14 @@ from components.player import Player
 
 def teleport(area_file):
     from core.area import area
-    area.load_file(area_file)
+   
+    import pygame
+
+    # Obtener la pantalla actual
+    screen = pygame.display.get_surface()
+    
+    # Cargar nueva área con barra de carga
+    area.load_file(area_file, screen)
 
 class Teleporter(Trigger):
     def __init__(self, area_file, x=0, y=0, width=0, height=0):
