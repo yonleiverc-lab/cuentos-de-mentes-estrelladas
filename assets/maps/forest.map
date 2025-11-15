@@ -1,12 +1,12 @@
 2
 -
 26, 600, 800, Jaime
-27, 400, 600, tree
-28, 800, 500, rock
-29, 1200, 700, stump
-30, 500, 900, bush
+27, 400, 950, forest1
+28, 2720, 700, forest2
+29, 600, 1000, hill1
+30, 2500, 1000, hill2
 31, 1000, 850, flower
-32, 1500, 600, mountain rock
+32, 1500, 600, 
 33, 300, 400, ancien tree
 34, 0,0,,0,0
 35,500,600,700,600,-25,-25,50,50,Presiona ESPACIO para saltar el vacío

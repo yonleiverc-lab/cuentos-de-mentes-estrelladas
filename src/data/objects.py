@@ -173,34 +173,40 @@ entity_factories = [
     #===================================
 
      # 26 - Jugador
-    lambda args:Entity(Player(movement_speed=80),
+    lambda args:Entity(Player(movement_speed=200),
     Animator('assets/Character', scale_factor=1.0), 
-    Sprite("assets/Character/Idle/Front.png", base_scale=0.05, depth_scale=True),
+    Sprite("assets/Character/Idle/Front.png", base_scale=0.05, depth_scale=True, draw_order_override=1002),
     Body(50,50,16,16)),
-    # 27 - Árbol
-    lambda args: Entity(Sprite("assets/Background/Forest/forest_tree.png", base_scale=0.2, depth_scale=True),
+    # 27 - Bosque1
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_1.png", base_scale=0.23, depth_scale=True, draw_order_override=1001),
     Body(400, 600,)),
-    # 28 - Piedra
+    # 28 - Bosque2
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_2.png", base_scale=0.23, depth_scale=True, draw_order_override=1001),
+    Body(400, 600,)),
+    # 29 - Colina1
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_hill1.png", base_scale=0.3, depth_scale=True),
+    Body(1500, 600,)),
+    # 30 - Colina2
+    lambda args: Entity(Sprite("assets/Background/Forest/forest_hill2.png", base_scale=0.35, depth_scale=True),
+    Body(1500, 600,)),
+    # 31 - Piedra
     lambda args: Entity(Sprite("assets/Background/Forest/forest_rock.png", base_scale=0.1, depth_scale=True),
     Body(800, 500,)),
-    # 29 - Tocón
+    # 32 - Tocón
     lambda args: Entity(Sprite("assets/Background/Forest/forest_stump.png", base_scale=0.1, depth_scale=True),
     Body(1200, 700,)),
-    # 30 - Arbusto
+    # 33 - Arbusto
     lambda args: Entity(Sprite("assets/Background/Forest/forest_bush.png", base_scale=0.1, depth_scale=True),
     Body(500, 900,)),
-    # 31 - Flor
+    # 34 - Flor
     lambda args: Entity(Sprite("assets/Background/Forest/forest_flower.png", base_scale=0.05, depth_scale=True),
     Body(1000, 850)),
-    # 32 - Montaña rocosa
-    lambda args: Entity(Sprite("assets/Background/Forest/mountain_rock.png", base_scale=0.2, depth_scale=True),
-    Body(1500, 600,)),
-    # 33 - Arbol antiguo
+    # 35 - Arbol antiguo
     lambda args: Entity(Sprite("assets/Background/Forest/ancien_tree.png", base_scale=0.2, depth_scale=True),
     Body(300, 400,)),
 
 
-    # 34 Teletransportación a la villa
+    # 36 Teletransportación a la villa
     lambda args: Entity(
         Teleporter(
             area_file=args[3],          # 1. Nombre del archivo (ej: 'village.map')
