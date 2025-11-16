@@ -66,6 +66,10 @@ while running:
     for s in sorted_sprites:
         s.draw(screen)
 
+    # Dibujar animación de ataque
+    from components.attack import attack_animation
+    attack_animation.draw(screen)
+
     # Dibujar prompts de salto
     jump_prompt.draw(screen)
     

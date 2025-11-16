@@ -116,13 +116,25 @@ class Animator:
         walk_frames_back = self._load_walk_sequence('Back_Walk', 10)
         animations['back_walk'] = walk_frames_back if walk_frames_back else [front_idle_image]
         
+        # Attack animations - 11 frames
+        print("Loading attack animations...")
+        attack_frames = self._load_walk_sequence('Attack', 11)  # 11 frames de ataque
+
+        # Usar los mismos frames para todas las direcciones (con flip para izquierda)
+        animations['front_attack'] = attack_frames if attack_frames else [front_idle_image]
+        animations['back_attack'] = attack_frames if attack_frames else [back_idle_image]
+        animations['right_attack'] = attack_frames if attack_frames else [right_idle_image]
+        animations['left_attack'] = [pygame.transform.flip(f, True, False) for f in attack_frames] if attack_frames else [front_idle_image]
+
+        print(f"✓ Attack animations loaded (11 frames)")
         print(f"=== Animation loading complete ===\n")
         
         # Guardar en cache
         loaded_animations[cache_key] = animations
         
         return animations
-    
+
+                
     def update(self, dt=1.0):
         """Actualiza la animación actual"""
         # Avanzar el timer de frames
@@ -163,6 +175,35 @@ class Animator:
             self.current_animation = 'front_idle'
         
         # CRÍTICO: Si cambiamos de animación, resetear el frame_index
+        if old_animation != self.current_animation:
+            self.frame_index = 0
+            self.frame_timer = 0
+
+    def set_attack_state(self, is_attacking, direction=None):
+        """Actualiza el estado de ataque
+        Args:
+         is_attacking: Si el personaje está atacando
+         direction: 'front', 'back', 'left', 'right' o None
+        """
+        old_animation = self.current_animation
+    
+        if direction:
+            self.facing_direction = direction
+    
+        if is_attacking:
+        # Cambiar a animación de ataque
+            self.current_animation = f'{self.facing_direction}_attack'
+            self.animation_speed = 0.4  # Velocidad del ataque (ajusta si es muy rápido/lento)
+        else:
+        # Volver a idle cuando termina el ataque
+            self.current_animation = f'{self.facing_direction}_idle'
+            self.animation_speed = 0.3  # Velocidad normal
+    
+    # Si la animación no existe, usar front_attack como fallback
+        if self.current_animation not in self.animations:
+           self.current_animation = 'front_attack' if is_attacking else 'front_idle'
+    
+    # Si cambiamos de animación, resetear el frame_index
         if old_animation != self.current_animation:
             self.frame_index = 0
             self.frame_timer = 0

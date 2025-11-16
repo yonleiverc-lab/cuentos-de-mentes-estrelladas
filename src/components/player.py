@@ -7,12 +7,14 @@ from core.camera import camera
 from components.entity import active_objs
 from components.physics import Body, triggers
 from components.jump_trigger import jump_prompt 
+from components.attack import AttackController, attack_animation
 
 class Player:
     def __init__(self, movement_speed=50):
         active_objs.append(self)
         self.entity = None
         self.movement_speed = movement_speed
+        self.attack_controller = AttackController() 
 
     def update(self):
         from components.animator import Animator
@@ -27,12 +29,48 @@ class Player:
         if self.entity is None:
             return  
         
+        self.attack_controller.entity = self.entity
+        
         sprite = self.entity.get(Sprite)
         if sprite:
             current_scale = sprite.get_depth_scale_factor()
             actual_speed = self.movement_speed * current_scale
         else:
             actual_speed = self.movement_speed
+
+        # NUEVO: Verificar ataque con tecla K
+        if is_key_pressed(pygame.K_k) and not self.attack_controller.is_attacking:
+            if animator:
+                direction = animator.facing_direction
+                animator.set_attack_state(True, direction)
+            
+            if self.attack_controller.start_attack(direction):
+                attack_animation.start(self.entity.x, self.entity.y, direction)
+
+        # Actualizar attack controller
+        self.attack_controller.update(animator)
+        attack_animation.update()
+
+        # Si está atacando, no permitir movimiento pero sí actualizar animación
+        if self.attack_controller.is_attacking:
+            if animator:
+                 animator.update()
+    
+            # Actualizar cámara
+            if sprite:
+                current_scale = sprite.get_depth_scale_factor()
+                if animator:
+                    current_frame = animator.get_current_frame()
+                    scaled_height = int(current_frame.get_height() * current_scale)
+                else:
+                    scaled_height = int(sprite.original_image.get_height() * current_scale)
+        
+                visual_center_y = self.entity.y - (scaled_height / 2)
+                camera.x = self.entity.x - camera.width / 2
+                camera.y = visual_center_y - camera.height / 2
+    
+            self._clamp_camera_to_map()
+            return  # No procesar movimiento durante el ataque                                    
 
         # Limpiar prompts anteriores
         jump_prompt.clear_prompts()

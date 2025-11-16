@@ -217,12 +217,8 @@ entity_factories = [
         ), 
         Sprite("assets/Background/Forest///Village_gate_door.png", base_scale=0.07, depth_scale=True, draw_order_override=801)
     ),
-
-
-]
-
-     # 35 - Trigger de salto 1 (primer vacío del bosque)
-lambda args: Entity(
+    # 37 - Trigger de salto 1 (primer vacío del bosque)
+    lambda args: Entity(
         JumpTrigger(
             destination_x=int(args[3]),  # X de destino
             destination_y=int(args[4]),  # Y de destino
@@ -232,11 +228,12 @@ lambda args: Entity(
             height=int(args[8]) if len(args) > 8 else 50, # Alto del trigger
             prompt_text=args[9] if len(args) > 9 else "Presiona ESPACIO para saltar")
     ),
-
-
+]
 def create_entity(id,x,y,data=None):
      factory = entity_factories [id]
      e = factory(data)
      e.x = x
      e.y = y
      return e
+     
+

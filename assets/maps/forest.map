@@ -9,5 +9,5 @@
 32, 1500, 600, 
 33, 300, 400, ancien tree
 34, 0,0,,0,0
-35,500,600,700,600,-25,-25,50,50,Presiona ESPACIO para saltar el vacío
-35,900,800,1100,800,-25,-25,50,50,Salta aquí para cruzar
+37,800,600,1000,600,-30,-30,60,60,Presiona ESPACIO para saltar el vacío
+37,1400,700,1600,700,-30,-30,60,60,Salta aquí para cruzar
