@@ -1,6 +1,7 @@
 import pygame
 import os
 
+
 class AttackController:
     """Controla los ataques del jugador"""
     
@@ -9,7 +10,7 @@ class AttackController:
         self.is_attacking = False
         self.attack_cooldown = 0
         self.attack_cooldown_max = 20  # frames (aproximadamente 0.5 segundos)
-        self.attack_duration = 33  # frames que dura la animación de ataque
+        self.attack_duration = 110  # frames que dura la animación de ataque
         self.attack_timer = 0
         self.attack_damage = 10
         self.attack_range = 80  # Alcance del ataque en píxeles

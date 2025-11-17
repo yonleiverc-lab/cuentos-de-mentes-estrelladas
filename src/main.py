@@ -31,7 +31,7 @@ running = True
 
 print("Cargando área...")
 
-area = Area("forest.map", tile_kinds, screen)
+area = Area("tavern.map", tile_kinds, screen)
 print("Área cargada")
 
 print("Entrando al bucle principal...")
@@ -47,7 +47,7 @@ while running:
                 input.keys_down.add(event.key)
         elif event.type == pygame.KEYUP:
             if not dialogue_box.active:
-                input.keys_down.remove(event.key)
+                input.keys_down.discard(event.key)
 
     # Update code (solo si NO hay diálogo activo)
     if not dialogue_box.active:

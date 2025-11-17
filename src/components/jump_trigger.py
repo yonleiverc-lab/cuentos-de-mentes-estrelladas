@@ -113,6 +113,10 @@ class JumpPrompt:
     def draw(self, screen):
         """Dibuja todos los prompts activos"""
         from core.camera import camera
+
+        self._init_font()
+
+        print(f" dibujando {len(self.active_prompts)} prompts de salto")    
         
         for prompt in self.active_prompts[:]:  # Copiar lista para poder modificar
             # Calcular posición en pantalla

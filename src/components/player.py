@@ -15,20 +15,22 @@ class Player:
         self.entity = None
         self.movement_speed = movement_speed
         self.attack_controller = AttackController() 
-
+        
     def update(self):
         from components.animator import Animator
         from core.area import area
         from components.jump_trigger import JumpTrigger, jump_prompt
 
+        if self.entity is None:
+            return 
+        
         previous_x = self.entity.x
         previous_y = self.entity.y
         body = self.entity.get(Body)
         animator = self.entity.get(Animator)
 
-        if self.entity is None:
-            return  
-        
+         
+    
         self.attack_controller.entity = self.entity
         
         sprite = self.entity.get(Sprite)
@@ -39,14 +41,22 @@ class Player:
             actual_speed = self.movement_speed
 
         # NUEVO: Verificar ataque con tecla K
-        if is_key_pressed(pygame.K_k) and not self.attack_controller.is_attacking:
-            if animator:
-                direction = animator.facing_direction
-                animator.set_attack_state(True, direction)
-            
-            if self.attack_controller.start_attack(direction):
-                attack_animation.start(self.entity.x, self.entity.y, direction)
+        if is_key_pressed(pygame.K_k):
+            print(f" Tecla k presionada. is_attacking: {self.attack_controller.is_attacking}")
 
+            if not self.attack_controller.is_attacking:
+                if animator:
+                    direction = animator.facing_direction
+                    print(f" Iniciando ataque en dirección: {direction}"    )
+
+                    animator.set_attack_state(True, direction)
+                    print(f" Animacion cambiada a: {animator.current_animation}")
+
+                    if self.attack_controller.start_attack(direction):
+                        attack_animation.start(self.entity.x, self.entity.y, direction)
+                        print(f" Ataque iniciado correctamente")
+                    else:
+                        print(f" Fallo al iniciar el ataque")
         # Actualizar attack controller
         self.attack_controller.update(animator)
         attack_animation.update()
@@ -78,8 +88,10 @@ class Player:
         # Verificar triggers (puertas y saltos)
         for t in triggers:
             if body.is_colliding_with(t):
+                print(f" Colisionando con trigger: {type(t).__name__}")
                 # Si es un JumpTrigger
                 if isinstance(t, JumpTrigger):
+                    print(f" Es un JumpTrigger!")
                     t.player_in_trigger = True
                     
                     # Mostrar prompt
