@@ -91,8 +91,9 @@ class AttackController:
                 self.is_attacking = False
                 self.attack_hitbox = None
                 # Resetear animación a idle
-            if animator:
-                animator.set_attack_state(False)
+                if animator:
+                   animator.set_attack_state(False)
+                   print("Ataque terminado, volviendo a idle")
     
     def check_hit(self, target_x, target_y, target_width=50, target_height=50):
         """

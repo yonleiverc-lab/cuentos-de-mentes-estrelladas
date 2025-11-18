@@ -128,7 +128,7 @@ class Animator:
                 self.frame_index = (self.frame_index + 1) % len(current_frames)
 
                 if 'attack' in self.current_animation and self.frame_index == 0:
-                    print(f" Frame {old_index} -> {self.frame_index} de {Len(current_frames)}")
+                    print(f" Frame {old_index} -> {self.frame_index} de {len(current_frames)}")
                     # Si la animación de ataque terminó, volver a idle o walk
                     if self.is_moving:
                         self.set_movement_state(True)
@@ -158,17 +158,21 @@ class Animator:
 
         if is_attacking:
             self.current_animation = f'{self.facing_direction}_attack'
-            self.animation_speed = 0.15  # Velocidad del ataque (ajusta si es muy rápido/lento)
+            self.animation_speed = 1.5  # Velocidad del ataque (ajusta si es muy rápido/lento)
+            print(f" cambiando a animación: {self.current_animation}")
         else:
             self.current_animation = f'{self.facing_direction}_idle'
             self.animation_speed = 0.3  # Velocidad normal
+            print(f" volviendo a idle: {self.current_animation}")
 
         if self.current_animation not in self.animations:
-            self.current_animation = 'attack' if is_attacking else 'front_idle'
+            self.current_animation = 'front_attack' if is_attacking else 'front_idle'
+            print(f" animacion no encontrada, usando fallback: {self.current_animation}")
 
         if old_animation != self.current_animation:
             self.frame_index = 0
             self.frame_timer = 0
+            print(f" Reset: frame_index=0, frame_timer=0")
     
     def get_current_frame(self):
         current_frames = self.animations.get(self.current_animation, self.animations.get('front_idle', []))
