@@ -4,7 +4,7 @@ from components.physics import Body
 class NPC:
     """Componente para personajes no jugadores"""
     
-    def __init__(self, name, dialogues, interaction_distance=50):
+    def __init__(self, name, dialogues, interaction_distance=150):
         """
         Args:
             name: Nombre del NPC
@@ -12,6 +12,8 @@ class NPC:
                       Ejemplo: [("Tabernero", "¡Bienvenido!"), ("Tabernero", "¿Qué deseas?")]
             interaction_distance: Distancia máxima para interactuar
         """
+        from components.entity import active_objs
+
         self.entity = None
         self.name = name
         self.dialogues = dialogues
@@ -23,6 +25,10 @@ class NPC:
         self.show_prompt = False
         self.prompt_alpha = 0
         self.prompt_font = None
+
+
+        active_objs.append(self)
+        print(f" NPC '{self.name}' creado y registrado en active_objs")   
     
     def _init_font(self):
         """Inicializa la fuente de forma perezosa"""
