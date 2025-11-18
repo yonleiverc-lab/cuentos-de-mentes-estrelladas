@@ -5,6 +5,7 @@ from components.physics import Body
 from components.teleporter import Teleporter
 from components.animator import Animator
 from components.jump_trigger import JumpTrigger
+from components.npc import NPC, NPCBehavior
 
 
 entity_factories = [
@@ -228,7 +229,55 @@ entity_factories = [
             height=int(args[8]) if len(args) > 8 else 50, # Alto del trigger
             prompt_text=args[9] if len(args) > 9 else "Presiona ESPACIO para saltar")
     ),
+
+    # 38 - NPC Tabernero (ejemplo en taberna)
+    lambda args: Entity(
+        NPC(
+            name="barman",
+            dialogues=[
+                ("barman", "¡Bienvenido a la taberna, jaime!"),
+                ("barman", "Por aquí pasan muchos aventureros..."),
+                ("barman", "¿Has oído sobre el caza sombras en el bosque?"),
+                ("jaime", "No, cuéntame más sobre eso."),
+                ("barman", "Dicen que aparece en las noches sin luna..."),   
+                ("jaime", "Suena aterrador, tendré cuidado. Gracias por la advertencia."),
+            ],
+            interaction_distance=50
+        ),
+        NPCBehavior(behavior_type="look_at_player"),
+        Sprite("assets/NPC/Barman/1.png", base_scale=0.1, depth_scale=True, draw_order_override=961),
+        Body(50, 50, 30, 30)
+    ),
+
+    # 39 - NPC woman
+    lambda args: Entity(
+        NPC(
+            name="mujer",
+            dialogues=[
+                ("Aldeano", "Hola, jaime."),
+                ("Aldeano", "Ten cuidado en el bosque de noche."),
+                ("jaime", "Gracias por el consejo."),
+            ],
+            interaction_distance=120
+        ),
+        NPCBehavior(behavior_type="idle"),  # Se queda quieto
+        Sprite("assets/NPC/woman/1.png", base_scale=0.05, depth_scale=True),
+        Body(50, 50, 30, 30)
+    ),
+
+    # 40 - Paredes de colisión genéricas
+    lambda args: Entity(
+        Body(
+            int(args[3]) if len(args) > 3 else 0,    # offset x
+            int(args[4]) if len(args) > 4 else 0,    # offset y
+            int(args[5]) if len(args) > 5 else 50,   # width (default: 50)
+            int(args[6]) if len(args) > 6 else 50    # height (default: 50)
+        )
+    ),
 ]
+
+
+    
 def create_entity(id,x,y,data=None):
      factory = entity_factories [id]
      e = factory(data)

@@ -11,6 +11,7 @@ from core.area import Area, area
 from data.tile_types import tile_kinds
 from components.dialogue import dialogue_box
 from components.jump_trigger import jump_prompt 
+from components.npc import NPC
 import pyautogui
 
 pygame.init()
@@ -33,6 +34,9 @@ print("Cargando área...")
 
 area = Area("tavern.map", tile_kinds, screen)
 print("Área cargada")
+
+
+dialogue_box.load_font()
 
 print("Entrando al bucle principal...")
  # Bucle de juego
@@ -69,6 +73,13 @@ while running:
     # Dibujar animación de ataque
     from components.attack import attack_animation
     attack_animation.draw(screen)
+
+
+    if area and area.entities:
+        for entity in area.entities:
+            npc = entity.get(NPC)
+            if npc:
+                npc.draw_prompt(screen)
 
     # Dibujar prompts de salto
     jump_prompt.draw(screen)
