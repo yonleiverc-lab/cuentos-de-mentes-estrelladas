@@ -242,7 +242,7 @@ entity_factories = [
                 ("barman", "Dicen que aparece en las noches sin luna..."),   
                 ("jaime", "Suena aterrador, tendré cuidado. Gracias por la advertencia."),
             ],
-            interaction_distance=150
+            interaction_distance=300
         ),
         NPCBehavior(behavior_type="look_at_player"),
         Sprite("assets/NPC/Barman/1.png", base_scale=0.1, depth_scale=True, draw_order_override=961),
@@ -254,9 +254,9 @@ entity_factories = [
         NPC(
             name="mujer",
             dialogues=[
-                ("Aldeano", "Hola, jaime."),
-                ("Aldeano", "Ten cuidado en el bosque de noche."),
-                ("jaime", "Gracias por el consejo."),
+                ("Mujer", "¡Ayudeme! Mi hijo se desapareció, temo que haya ido al bosque."),
+                ("Jaime", "Le ayudaré, voy a encontrarlo por usted."),
+                ("Mujer", "Muchas gracias. Por favor, tenga cuidado."),
             ],
             interaction_distance=120
         ),
