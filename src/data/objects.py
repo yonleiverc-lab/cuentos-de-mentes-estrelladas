@@ -233,14 +233,15 @@ entity_factories = [
     # 38 - NPC Tabernero (ejemplo en taberna)
     lambda args: Entity(
         NPC(
-            name="barman",
+            name="Tabernero",
             dialogues=[
-                ("barman", "¡Bienvenido a la taberna, jaime!"),
-                ("barman", "Por aquí pasan muchos aventureros..."),
-                ("barman", "¿Has oído sobre el caza sombras en el bosque?"),
-                ("jaime", "No, cuéntame más sobre eso."),
-                ("barman", "Dicen que aparece en las noches sin luna..."),   
-                ("jaime", "Suena aterrador, tendré cuidado. Gracias por la advertencia."),
+                ("Tabernero", "¡Silencio!¡Silencio! Callen ese piano."),
+                ("Radio", "-¿Cree usted de verdad en esas tonterias?"
+                "-No crea, don Julio, en esta vida hay que creer de todo. Y así como lo oye, ofrecen recompensa por traer la cabeza del cazasombras"),
+                ("Tabernero", "¡Já! ¿Quién se atrevería a ir por ese monstruo?"),
+                ("Jaime", "Yo lo haré."),
+                ("Tabernero", "¿Usted? Rezaré por su alma, Jaime. ¿Le doy lo de siempre?"),   
+                ("Jaime", "Sí, por favor."),
             ],
             interaction_distance=300
         ),
